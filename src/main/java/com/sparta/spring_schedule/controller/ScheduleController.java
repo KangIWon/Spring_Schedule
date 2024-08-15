@@ -65,38 +65,35 @@ public class ScheduleController {
         return scheduleResponseDto;
     }
 
-//    // get
-//    // 단 건 조회
-//    /*
-//    여기 아랫부분 다시 구현
-//     */
-//    @GetMapping("/schedule")
-//    public Optional<Schedule> getSchedule(Long id) {
-//        // DB 조회
-//        String sql = "SELECT * FROM schedule WHERE id = ?";
-//        try {
-//            Schedule schedule = jdbcTemplate.queryForObject(sql, scheduleRowMapper(), id);
-//            return Optional.of(schedule);
-//        } catch (EmptyResultDataAccessException e) {
-//            return Optional.empty();
-//        }
-//
-////        return jdbcTemplate.query("SELECT * FROM schedule WHERE id = ?");
-//    }
-//
-//    private RowMapper<Schedule> scheduleRowMapper() {
-//        return (((rs, rowNum) -> {
-//            Schedule schedule = new Schedule();
-//            schedule.setId(rs.getLong("id"));
-//            schedule.setTitle(rs.getString("title"));
-//            schedule.setDate(rs.getString("date"));
-//            schedule.setTime(rs.getString("time"));
-//            schedule.setName(rs.getString("name"));
-//            schedule.setPw(rs.getString("pw"));
-//            schedule.setC_m_date(rs.getString("c_m_date"));
-//            return schedule;
-//        } ));
-//    }
+    // get
+    // 단 건 조회
+    @GetMapping("/schedule")
+    public Optional<Schedule> getSchedule(Long id) {
+        // DB 조회
+        String sql = "SELECT * FROM schedule WHERE id = ?";
+        try {
+            Schedule schedule = jdbcTemplate.queryForObject(sql, scheduleRowMapper(), id);
+            return Optional.of(schedule);
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+
+//        return jdbcTemplate.query("SELECT * FROM schedule WHERE id = ?");
+    }
+
+    private RowMapper<Schedule> scheduleRowMapper() {
+        return (((rs, rowNum) -> {
+            Schedule schedule = new Schedule();
+            schedule.setId(rs.getLong("id"));
+            schedule.setTitle(rs.getString("title"));
+            schedule.setDate(rs.getString("date"));
+            schedule.setTime(rs.getString("time"));
+            schedule.setName(rs.getString("name"));
+            schedule.setPw(rs.getString("pw"));
+            schedule.setC_m_date(rs.getString("c_m_date"));
+            return schedule;
+        } ));
+    }
 //
 //    // 목록 조회
 //    // DB 역할을 하는 scheduleList를 조회하여 List<ScheduleResponseDto>로 변환한 후 반환
