@@ -1,3 +1,4 @@
+<img width="572" alt="스크린샷 2024-08-15 오후 9 53 16" src="https://github.com/user-attachments/assets/ca939ede-447b-44a9-9e64-c5a2c747bf06">
 1. 일정 작성
     1. POST API 사용해서 일정 작성
     2. 생성된 일정 반환
