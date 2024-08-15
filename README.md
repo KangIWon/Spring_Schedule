@@ -1,4 +1,3 @@
-<img width="572" alt="스크린샷 2024-08-15 오후 9 53 16" src="https://github.com/user-attachments/assets/ca939ede-447b-44a9-9e64-c5a2c747bf06">
 1. 일정 작성
     1. POST API 사용해서 일정 작성
     2. 생성된 일정 반환
@@ -14,3 +13,5 @@
     1. DELETE API 사용해서 일정 삭제하기
     2. 사용자가 삭제하려는 일정이 DB에 존재하는지 확인하기(id로)
     3. DB에서 해당 일정 삭제
+
+<img width="572" alt="스크린샷 2024-08-15 오후 9 53 16" src="https://github.com/user-attachments/assets/ca939ede-447b-44a9-9e64-c5a2c747bf06">
