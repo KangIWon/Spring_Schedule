@@ -96,7 +96,6 @@ public class ScheduleController {
     }
 
     // 목록 조회
-    // DB 역할을 하는 scheduleList를 조회하여 List<ScheduleResponseDto>로 변환한 후 반환
     @GetMapping("/schedulelist")
     public List<ScheduleResponseDto> getSchedulelest() {
         // DB 조회
