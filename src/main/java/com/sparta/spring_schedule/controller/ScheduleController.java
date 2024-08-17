@@ -21,7 +21,7 @@ import java.util.*;
 일정 생성하기 API를 받을 수 있는 controller와 메서드 생성
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/schedule")
 public class ScheduleController {
 
     // 클래스 속성
@@ -34,7 +34,7 @@ public class ScheduleController {
 
     // post
     // 일정 등록
-    @PostMapping("/schedule")
+    @PostMapping()
     public ScheduleResponseDto createSchedule(@RequestBody ScheduleRequestDto requestDto) {
         ScheduleService scheduleService = new ScheduleService(jdbcTemplate);
         return scheduleService.createSchedule(requestDto);
@@ -42,7 +42,7 @@ public class ScheduleController {
 
     // get
     // 단 건 조회
-    @GetMapping("/schedule")
+    @GetMapping("/{id}")
     public Optional<Schedule> getSchedule(Long id) {
         // DB 조회
         String sql = "SELECT * FROM schedule WHERE id = ?";
@@ -71,8 +71,8 @@ public class ScheduleController {
     }
 
     // 목록 조회
-    @GetMapping("/schedulelist")
-    public List<ScheduleResponseDto> getSchedulelest() {
+    @GetMapping()
+    public List<ScheduleResponseDto> getSchedulelist() {
         // DB 조회
         String sql = "SELECT * FROM schedule";
 
@@ -93,7 +93,7 @@ public class ScheduleController {
     }
     // put
     // 수정
-    @PutMapping("/schedule/{id}")
+    @PutMapping("/{id}")
     public Long updateSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) {
         // 해당 일정이 DB에 존재하는지 확인
         Schedule schedule = findById(id);
@@ -110,7 +110,7 @@ public class ScheduleController {
     }
     // delete
     // 삭제
-    @DeleteMapping("/schedule/{id}")
+    @DeleteMapping("/{id}")
     public Long deleteSchedule(@PathVariable Long id) {
         // 해당 일정이 DB에 존재하는지 확인
         Schedule schedule = findById(id);
