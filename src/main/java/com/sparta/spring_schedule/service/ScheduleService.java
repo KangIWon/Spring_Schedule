@@ -44,7 +44,12 @@ public class ScheduleService {
     public Optional<Schedule> getSchedule(Long id) {
         // DB 조회
         ScheduleRepository scheduleRepository = new ScheduleRepository(jdbcTemplate);
-        return scheduleRepository.find(id);
+        try {
+            Optional<Schedule> schedule = scheduleRepository.find(id);
+            return schedule;
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
     }
 
     public List<ScheduleResponseDto> getSchedulelist() {

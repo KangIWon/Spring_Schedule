@@ -54,12 +54,10 @@ public class ScheduleRepository {
 
     public Optional<Schedule> find(Long id) {
         String sql = "SELECT * FROM schedule WHERE id = ?";
-        try {
-            Schedule schedule = jdbcTemplate.queryForObject(sql, scheduleRowMapper(), id);
-            return Optional.of(schedule);
-        } catch (EmptyResultDataAccessException e) {
-            return Optional.empty();
-        }
+
+        Schedule schedule = jdbcTemplate.queryForObject(sql, scheduleRowMapper(), id);
+        return Optional.of(schedule);
+
 //        return jdbcTemplate.query("SELECT * FROM schedule WHERE id = ?");
     }
 
