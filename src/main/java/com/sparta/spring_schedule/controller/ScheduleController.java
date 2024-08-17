@@ -4,18 +4,11 @@ import com.sparta.spring_schedule.dto.ScheduleRequestDto;
 import com.sparta.spring_schedule.dto.ScheduleResponseDto;
 import com.sparta.spring_schedule.entity.Schedule;
 import com.sparta.spring_schedule.service.ScheduleService;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.web.bind.annotation.*;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
-import java.util.*;
+
+import java.util.List;
+import java.util.Optional;
 
 /*
 일정 생성하기 API를 받을 수 있는 controller와 메서드 생성
