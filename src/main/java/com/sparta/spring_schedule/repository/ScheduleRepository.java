@@ -2,6 +2,7 @@ package com.sparta.spring_schedule.repository;
 
 import com.sparta.spring_schedule.dto.ScheduleResponseDto;
 import com.sparta.spring_schedule.entity.Schedule;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public class ScheduleRepository {
 
@@ -47,6 +49,31 @@ public class ScheduleRepository {
         schedule.setId(id);
 
         return schedule;
+    }
+
+    public Optional<Schedule> find(Long id) {
+        String sql = "SELECT * FROM schedule WHERE id = ?";
+        try {
+            Schedule schedule = jdbcTemplate.queryForObject(sql, scheduleRowMapper(), id);
+            return Optional.of(schedule);
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+//        return jdbcTemplate.query("SELECT * FROM schedule WHERE id = ?");
+    }
+
+    private RowMapper<Schedule> scheduleRowMapper() {
+        return (((rs, rowNum) -> {
+            Schedule schedule = new Schedule();
+            schedule.setId(rs.getLong("id"));
+            schedule.setTitle(rs.getString("title"));
+            schedule.setDate(rs.getString("date"));
+            schedule.setTime(rs.getString("time"));
+            schedule.setName(rs.getString("name"));
+            schedule.setPw(rs.getString("pw"));
+            schedule.setC_m_date(rs.getString("c_m_date"));
+            return schedule;
+        } ));
     }
 
     public List<ScheduleResponseDto> findAll() {

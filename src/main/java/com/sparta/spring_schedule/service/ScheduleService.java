@@ -43,28 +43,8 @@ public class ScheduleService {
 
     public Optional<Schedule> getSchedule(Long id) {
         // DB 조회
-        String sql = "SELECT * FROM schedule WHERE id = ?";
-        try {
-            Schedule schedule = jdbcTemplate.queryForObject(sql, scheduleRowMapper(), id);
-            return Optional.of(schedule);
-        } catch (EmptyResultDataAccessException e) {
-            return Optional.empty();
-        }
-//        return jdbcTemplate.query("SELECT * FROM schedule WHERE id = ?");
-    }
-
-    private RowMapper<Schedule> scheduleRowMapper() {
-        return (((rs, rowNum) -> {
-            Schedule schedule = new Schedule();
-            schedule.setId(rs.getLong("id"));
-            schedule.setTitle(rs.getString("title"));
-            schedule.setDate(rs.getString("date"));
-            schedule.setTime(rs.getString("time"));
-            schedule.setName(rs.getString("name"));
-            schedule.setPw(rs.getString("pw"));
-            schedule.setC_m_date(rs.getString("c_m_date"));
-            return schedule;
-        } ));
+        ScheduleRepository scheduleRepository = new ScheduleRepository(jdbcTemplate);
+        return scheduleRepository.find(id);
     }
 
     public List<ScheduleResponseDto> getSchedulelist() {
