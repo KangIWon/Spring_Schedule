@@ -1,13 +1,18 @@
 package com.sparta.spring_schedule.repository;
 
+import com.sparta.spring_schedule.dto.ScheduleResponseDto;
 import com.sparta.spring_schedule.entity.Schedule;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.List;
 
 public class ScheduleRepository {
 
@@ -42,5 +47,24 @@ public class ScheduleRepository {
         schedule.setId(id);
 
         return schedule;
+    }
+
+    public List<ScheduleResponseDto> findAll() {
+        String sql = "SELECT * FROM schedule";
+
+        return jdbcTemplate.query(sql, new RowMapper<ScheduleResponseDto>() {
+            @Override
+            public ScheduleResponseDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                // SQL 의 결과로 받아온 Schedule 데이터들을 ScheduleResponseDto 타입으로 변환해줄 메서드
+                Long id = rs.getLong("id");
+                String title = rs.getString("title");
+                String date = rs.getString("date");
+                String time = rs.getString("time");
+                String name = rs.getString("name");
+                String pw = rs.getString("pw");
+                String c_m_date = rs.getString("c_m_date");
+                return new ScheduleResponseDto(id, title, date, time, name, pw, c_m_date);
+            }
+        });
     }
 }

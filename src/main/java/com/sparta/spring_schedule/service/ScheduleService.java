@@ -69,22 +69,8 @@ public class ScheduleService {
 
     public List<ScheduleResponseDto> getSchedulelist() {
         // DB 조회
-        String sql = "SELECT * FROM schedule";
-
-        return jdbcTemplate.query(sql, new RowMapper<ScheduleResponseDto>() {
-            @Override
-            public ScheduleResponseDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-                // SQL 의 결과로 받아온 Schedule 데이터들을 ScheduleResponseDto 타입으로 변환해줄 메서드
-                Long id = rs.getLong("id");
-                String title = rs.getString("title");
-                String date = rs.getString("date");
-                String time = rs.getString("time");
-                String name = rs.getString("name");
-                String pw = rs.getString("pw");
-                String c_m_date = rs.getString("c_m_date");
-                return new ScheduleResponseDto(id, title, date, time, name, pw, c_m_date);
-            }
-        });
+        ScheduleRepository scheduleRepository = new ScheduleRepository(jdbcTemplate);
+        return scheduleRepository.findAll();
     }
 
     public Long updateSchedule(Long id, ScheduleRequestDto requestDto) {
