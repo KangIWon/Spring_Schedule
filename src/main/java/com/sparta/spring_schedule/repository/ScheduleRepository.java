@@ -101,6 +101,10 @@ public class ScheduleRepository {
                 requestDto.getName(), requestDto.getPw(), requestDto.getC_m_date(), id);
     }
 
+    public void delete(Long id) {
+        String sql = "DELETE FROM schedule WHERE id = ?";
+        jdbcTemplate.update(sql, id);
+    }
 
     public Schedule findById(Long id) {
         // DB 조회

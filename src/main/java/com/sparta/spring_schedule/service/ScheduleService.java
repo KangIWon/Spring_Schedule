@@ -73,12 +73,12 @@ public class ScheduleService {
     }
 
     public Long deleteSchedule(Long id) {
+        ScheduleRepository scheduleRepository = new ScheduleRepository(jdbcTemplate);
         // 해당 일정이 DB에 존재하는지 확인
-        Schedule schedule = findById(id);
+        Schedule schedule = scheduleRepository.findById(id);
         if(schedule != null) {
             // schedule 삭제
-            String sql = "DELETE FROM schedule WHERE id = ?";
-            jdbcTemplate.update(sql, id);
+            scheduleRepository.delete(id);
             return id;
         } else {
             throw new IllegalArgumentException("선택한 일정은 존재하지 않습니다.");
