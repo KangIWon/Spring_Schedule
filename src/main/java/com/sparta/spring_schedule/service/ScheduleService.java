@@ -4,25 +4,31 @@ import com.sparta.spring_schedule.dto.ScheduleRequestDto;
 import com.sparta.spring_schedule.dto.ScheduleResponseDto;
 import com.sparta.spring_schedule.entity.Schedule;
 import com.sparta.spring_schedule.repository.ScheduleRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
+@RequiredArgsConstructor
 public class ScheduleService {
 
     // 클래스 속성
     private final JdbcTemplate jdbcTemplate;
+    private final Schedule schedule;
 
+    //@RequiredArgsConstructor final만 사용 가능
     // 클래스 생성자
-    public ScheduleService(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+//    public ScheduleService(JdbcTemplate jdbcTemplate) {
+//        this.jdbcTemplate = jdbcTemplate;
+//    }
 
     public ScheduleResponseDto createSchedule(ScheduleRequestDto requestDto) {
         // ResponseDto -> Entity
-        Schedule schedule = new Schedule(requestDto);
+//        Schedule schedule = new Schedule(requestDto);
+        schedule.update(requestDto);
         // DB 저장
         ScheduleRepository scheduleRepository = new ScheduleRepository(jdbcTemplate);
         Schedule saveSchedule = scheduleRepository.save(schedule);

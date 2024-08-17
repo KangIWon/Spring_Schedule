@@ -3,6 +3,7 @@ package com.sparta.spring_schedule.repository;
 import com.sparta.spring_schedule.dto.ScheduleRequestDto;
 import com.sparta.spring_schedule.dto.ScheduleResponseDto;
 import com.sparta.spring_schedule.entity.Schedule;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -15,7 +16,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
+@Slf4j
 public class ScheduleRepository {
 
     private final JdbcTemplate jdbcTemplate;
@@ -95,10 +96,11 @@ public class ScheduleRepository {
     }
 
     public void update(Long id, ScheduleRequestDto requestDto) {
+        log.info("id값{}", id);
         LocalDate now = LocalDate.now();
-        String sql = "UPDATE schedule SET title = ?, date = ?, time = ?, name = ?, pw = ?, c_m_date = String.valueOf(now) WHERE id = ?";
+        String sql = "UPDATE schedule SET title = ?, date = ?, time = ?, name = ?, pw = ?, c_m_date = NOW() WHERE id = ?";
         jdbcTemplate.update(sql, requestDto.getTitle(), requestDto.getDate(), requestDto.getTime(),
-                requestDto.getName(), requestDto.getPw(), requestDto.getC_m_date(), id);
+                requestDto.getName(), requestDto.getPw(), id);
     }
 
     public void delete(Long id) {

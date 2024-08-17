@@ -4,12 +4,15 @@ import com.sparta.spring_schedule.dto.ScheduleRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
+
 /*
 일정 데이터를 저장할 Schedule 클래스 생성
  */
 @Getter
 @Setter
 @NoArgsConstructor
+@Component
 public class Schedule {
     // 할일 이름
     private String title;
