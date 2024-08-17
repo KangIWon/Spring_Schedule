@@ -17,6 +17,8 @@ import java.util.Optional;
 @RequestMapping("/api/schedule")
 public class ScheduleController {
 
+    //private final ScheduleService
+
     // 클래스 속성
     private final JdbcTemplate jdbcTemplate;
 
