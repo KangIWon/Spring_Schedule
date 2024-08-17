@@ -6,15 +6,7 @@ import com.sparta.spring_schedule.entity.Schedule;
 import com.sparta.spring_schedule.repository.ScheduleRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 

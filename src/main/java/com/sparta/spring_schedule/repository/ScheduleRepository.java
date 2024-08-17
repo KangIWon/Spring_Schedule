@@ -3,7 +3,6 @@ package com.sparta.spring_schedule.repository;
 import com.sparta.spring_schedule.dto.ScheduleRequestDto;
 import com.sparta.spring_schedule.dto.ScheduleResponseDto;
 import com.sparta.spring_schedule.entity.Schedule;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
