@@ -1,5 +1,6 @@
 package com.sparta.spring_schedule.repository;
 
+import com.sparta.spring_schedule.dto.ScheduleRequestDto;
 import com.sparta.spring_schedule.dto.ScheduleResponseDto;
 import com.sparta.spring_schedule.entity.Schedule;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -77,6 +78,7 @@ public class ScheduleRepository {
     }
 
     public List<ScheduleResponseDto> findAll() {
+        // DB 조회
         String sql = "SELECT * FROM schedule";
 
         return jdbcTemplate.query(sql, new RowMapper<ScheduleResponseDto>() {
@@ -93,5 +95,32 @@ public class ScheduleRepository {
                 return new ScheduleResponseDto(id, title, date, time, name, pw, c_m_date);
             }
         });
+    }
+
+    public void update(Long id, ScheduleRequestDto requestDto) {
+        String sql = "UPDATE memo SET username = ?, contents = ? WHERE id = ?";
+        jdbcTemplate.update(sql, requestDto.getTitle(), requestDto.getDate(), requestDto.getTime(),
+                requestDto.getName(), requestDto.getPw(), requestDto.getC_m_date(), id);
+    }
+
+
+    public Schedule findById(Long id) {
+        // DB 조회
+        String sql = "SELECT * FROM schedule WHERE id = ?";
+        LocalDate now = LocalDate.now();
+        return jdbcTemplate.query(sql, resultSet -> {
+            if(resultSet.next()) {
+                Schedule schedule = new Schedule();
+                schedule.setTitle(resultSet.getString("title"));
+                schedule.setDate(resultSet.getString("date"));
+                schedule.setTime(resultSet.getString("time"));
+                schedule.setName(resultSet.getString("name"));
+                schedule.setPw(resultSet.getString("pw"));
+                schedule.setC_m_date(String.valueOf(now));
+                return schedule;
+            } else {
+                return null;
+            }
+        }, id);
     }
 }
