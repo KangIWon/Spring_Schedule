@@ -27,6 +27,7 @@ public class ScheduleController {
 
     // post
     // 일정 등록
+    // DB에 저장은 잘 되는 것 같은데 postman에서는 몇몇 값이 null값으로 표시가 됨
     @PostMapping()
     public ScheduleResponseDto createSchedule(@RequestBody ScheduleRequestDto requestDto) {
         ScheduleService scheduleService = new ScheduleService(jdbcTemplate);
@@ -35,6 +36,7 @@ public class ScheduleController {
 
     // get
     // 단 건 조회
+    // 안되는 거 확인
     @GetMapping("/{id}")
     public Optional<Schedule> getSchedule(Long id) {
         ScheduleService scheduleService = new ScheduleService(jdbcTemplate);
@@ -49,6 +51,7 @@ public class ScheduleController {
     }
     // put
     // 수정
+    //안되는 거 확인
     @PutMapping("/{id}")
     public Long updateSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) {
         ScheduleService scheduleService = new ScheduleService(jdbcTemplate);
