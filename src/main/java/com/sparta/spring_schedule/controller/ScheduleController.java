@@ -44,52 +44,15 @@ public class ScheduleController {
     // 단 건 조회
     @GetMapping("/{id}")
     public Optional<Schedule> getSchedule(Long id) {
-        // DB 조회
-        String sql = "SELECT * FROM schedule WHERE id = ?";
-        try {
-            Schedule schedule = jdbcTemplate.queryForObject(sql, scheduleRowMapper(), id);
-            return Optional.of(schedule);
-        } catch (EmptyResultDataAccessException e) {
-            return Optional.empty();
-        }
-
-//        return jdbcTemplate.query("SELECT * FROM schedule WHERE id = ?");
-    }
-
-    private RowMapper<Schedule> scheduleRowMapper() {
-        return (((rs, rowNum) -> {
-            Schedule schedule = new Schedule();
-            schedule.setId(rs.getLong("id"));
-            schedule.setTitle(rs.getString("title"));
-            schedule.setDate(rs.getString("date"));
-            schedule.setTime(rs.getString("time"));
-            schedule.setName(rs.getString("name"));
-            schedule.setPw(rs.getString("pw"));
-            schedule.setC_m_date(rs.getString("c_m_date"));
-            return schedule;
-        } ));
+        ScheduleService scheduleService = new ScheduleService(jdbcTemplate);
+        return scheduleService.getSchedule(id);
     }
 
     // 목록 조회
     @GetMapping()
     public List<ScheduleResponseDto> getSchedulelist() {
-        // DB 조회
-        String sql = "SELECT * FROM schedule";
-
-        return jdbcTemplate.query(sql, new RowMapper<ScheduleResponseDto>() {
-            @Override
-            public ScheduleResponseDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-                // SQL 의 결과로 받아온 Schedule 데이터들을 ScheduleResponseDto 타입으로 변환해줄 메서드
-                Long id = rs.getLong("id");
-                String title = rs.getString("title");
-                String date = rs.getString("date");
-                String time = rs.getString("time");
-                String name = rs.getString("name");
-                String pw = rs.getString("pw");
-                String c_m_date = rs.getString("c_m_date");
-                return new ScheduleResponseDto(id, title, date, time, name, pw, c_m_date);
-            }
-        });
+        ScheduleService scheduleService = new ScheduleService(jdbcTemplate);
+        return scheduleService.getSchedulelist();
     }
     // put
     // 수정
